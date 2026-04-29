@@ -11,6 +11,17 @@ function ensureSessionStarted(): void
     }
 }
 
+function requireDevMode(): void
+{
+    if (defined('ALLOW_DEV_TEST_PAGES') && ALLOW_DEV_TEST_PAGES === true) {
+        return;
+    }
+
+    http_response_code(404);
+    echo 'This development test page is disabled.';
+    exit;
+}
+
 function setFlashMessage(string $message, string $type = 'info'): void
 {
     ensureSessionStarted();

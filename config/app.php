@@ -17,5 +17,11 @@ define('APP_PATH', ROOT_PATH . '/app');
 define('CONFIG_PATH', ROOT_PATH . '/config');
 
 // Environment
-define('ENVIRONMENT', 'development');
+define('APP_ENV', 'development');
+
+// Set ALLOW_DEV_TEST_PAGES to false before final submission if you do not want public test pages accessible.
+define('ALLOW_DEV_TEST_PAGES', false);
+
+// Backward-compatible environment constant used by existing project code.
+define('ENVIRONMENT', APP_ENV);
 ?>

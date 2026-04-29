@@ -1,12 +1,14 @@
 <?php
+require_once '../config/app.php';
+require_once '../app/helpers/auth.php';
+requireDevMode();
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once '../config/app.php';
 require_once '../config/database.php';
 require_once '../app/helpers/url.php';
-require_once '../app/helpers/auth.php';
 require_once '../app/helpers/format.php';
 require_once '../app/models/Cart.php';
 require_once '../app/models/Enrollment.php';
