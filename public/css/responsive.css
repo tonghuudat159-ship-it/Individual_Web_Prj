@@ -1,0 +1,400 @@
+/**
+ * Responsive Design Stylesheet
+ * Media queries and responsive styles for mobile, tablet, and desktop
+ */
+
+/* Tablet: 768px and below */
+@media (max-width: 992px) {
+  .header-container {
+    padding: 1rem 1.5rem;
+  }
+
+  .navbar-logo h1 {
+    font-size: 1.5rem;
+  }
+
+  .site-navbar {
+    margin-left: 1rem;
+  }
+
+  .nav-list {
+    gap: 1.5rem;
+  }
+
+  /* Course Grid */
+  .courses-grid,
+  .categories-grid,
+  .related-courses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer */
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* General Spacing */
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .hero h2 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile: 768px and below */
+@media (max-width: 768px) {
+  /* Header and Navbar */
+  .header {
+    position: relative;
+  }
+
+  .header-container {
+    position: relative;
+  }
+
+  /* Navbar */
+  .navbar-toggle {
+    display: block;
+  }
+
+  .header-container {
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+  }
+
+  .navbar-logo h1 {
+    font-size: 1.4rem;
+  }
+
+  .site-navbar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    display: none;
+    width: 100%;
+    margin-left: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+
+  .site-navbar.open {
+    display: block;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 0;
+    padding: 1rem;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-bottom: none;
+    border-left: 3px solid transparent;
+  }
+
+  .nav-link:hover {
+    background-color: #f5f5f5;
+  }
+
+  .nav-link.active {
+    background-color: #f0f4ff;
+    border-left-color: #5624d0;
+    border-bottom-color: transparent;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 3rem 1rem;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero h2 {
+    font-size: 1.6rem;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+  }
+
+  /* Page Layouts */
+  .page-title {
+    font-size: 1.6rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  /* Grid Layouts */
+  .courses-grid,
+  .categories-grid,
+  .related-courses-grid,
+  .my-learning-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Two Column Layouts */
+  .cart-layout,
+  .checkout-layout,
+  .course-detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-summary-column,
+  .checkout-summary-column {
+    position: static;
+    top: auto;
+  }
+
+  /* Forms */
+  .form-input,
+  .form-select,
+  textarea {
+    width: 100%;
+  }
+
+  /* Buttons */
+  .btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .success-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .success-actions .btn {
+    max-width: 100%;
+  }
+
+  /* Cards and Sections */
+  .payment-success-card {
+    padding: 1.5rem;
+  }
+
+  .order-summary-card,
+  .checkout-summary-card,
+  .checkout-section,
+  .auth-card {
+    padding: 1.5rem;
+  }
+
+  /* Footer */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .footer-section h3 {
+    font-size: 1rem;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  /* Checkout Form */
+  .card-details {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .card-holder,
+  .card-expiry {
+    flex: 1;
+  }
+
+  /* Course Detail */
+  .course-detail-hero {
+    padding: 2rem 1rem;
+  }
+
+  .course-detail-heading h1 {
+    font-size: 1.4rem;
+  }
+
+  .lessons-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* Contact Form */
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small Mobile: 480px and below */
+@media (max-width: 480px) {
+  /* Header */
+  .header-container {
+    padding: 0.5rem;
+  }
+
+  .navbar-logo h1 {
+    font-size: 1.2rem;
+  }
+
+  .navbar-toggle {
+    font-size: 1.3rem;
+    padding: 0.25rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .hero h2 {
+    font-size: 1.3rem;
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Titles */
+  .page-title {
+    font-size: 1.4rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.9rem;
+  }
+
+  h1,
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  /* Container */
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  /* Buttons and Forms */
+  .btn {
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .form-input,
+  textarea {
+    padding: 0.65rem;
+    font-size: 0.95rem;
+  }
+
+  /* Cards */
+  .payment-success-card,
+  .auth-card,
+  .checkout-section,
+  .order-summary-card {
+    padding: 1rem;
+  }
+
+  .success-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+
+  .success-title {
+    font-size: 1.4rem;
+  }
+
+  .success-message {
+    font-size: 0.95rem;
+  }
+
+  /* Spacing */
+  .section-spacing {
+    padding: 1.5rem 0;
+  }
+
+  /* Course Cards */
+  .course-card {
+    margin-bottom: 1rem;
+  }
+
+  .course-card-title {
+    font-size: 1rem;
+  }
+
+  .course-card-price {
+    font-size: 1rem;
+  }
+
+  /* Cart and Checkout */
+  .cart-item,
+  .checkout-section {
+    padding: 1rem;
+  }
+
+  .cart-item-title {
+    font-size: 1rem;
+  }
+
+  .cart-item-price {
+    font-size: 1rem;
+  }
+
+  /* Footer */
+  .footer-section h3 {
+    font-size: 0.95rem;
+  }
+
+  .footer-section p,
+  .footer-section a {
+    font-size: 0.85rem;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    font-size: 0.75rem;
+  }
+
+  /* Contact Form */
+  .contact-info {
+    font-size: 0.9rem;
+  }
+
+  .contact-item {
+    margin-bottom: 1rem;
+  }
+}

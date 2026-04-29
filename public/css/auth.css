@@ -1,0 +1,134 @@
+/**
+ * Authentication Stylesheet
+ * Styles for login, register, forgot password, and reset password pages
+ */
+
+/* Authentication Container */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 200px);
+  padding: 2rem;
+  background-color: #f8f8f8;
+}
+
+/* Authentication Card */
+.auth-card {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-card h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.auth-description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Authentication Form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.form-input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #5624d0;
+  box-shadow: 0 0 0 3px rgba(86, 36, 208, 0.1);
+}
+
+/* Auth Button */
+.btn-auth {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Auth Links */
+.auth-links {
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.auth-links p {
+  margin-bottom: 0.75rem;
+}
+
+.auth-links p:last-child {
+  margin-bottom: 0;
+}
+
+.auth-link {
+  color: #5624d0;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.auth-link:hover {
+  color: #4a1fa0;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .auth-container {
+    min-height: calc(100vh - 150px);
+    padding: 1rem;
+  }
+
+  .auth-card {
+    padding: 2rem;
+    max-width: 100%;
+  }
+
+  .auth-card h1 {
+    font-size: 1.5rem;
+  }
+
+  .form-input {
+    padding: 0.65rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-auth {
+    padding: 0.75rem;
+  }
+}
