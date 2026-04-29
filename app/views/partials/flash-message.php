@@ -4,15 +4,25 @@
  * Displays session flash messages for notifications
  */
 
-// Display flash message if it exists in session
 if (isset($_SESSION['flash_message'])) {
-    $flash = $_SESSION['flash_message'];
-    $class = isset($flash['type']) ? 'flash-' . htmlspecialchars($flash['type']) : 'flash-info';
-    ?>
-    <div class="flash-message <?php echo $class; ?>">
-        <p><?php echo htmlspecialchars($flash['text']); ?></p>
-    </div>
-    <?php
+    $message = $_SESSION['flash_message'];
+    $type = $_SESSION['flash_type'] ?? 'info';
+
+    // Support both a simple string message and the older array format.
+    if (is_array($message)) {
+        $type = $message['type'] ?? $type;
+        $message = $message['text'] ?? '';
+    }
+
+    if (is_string($message) && $message !== '') {
+        ?>
+        <div class="flash-message flash-<?php echo htmlspecialchars($type); ?>">
+            <p><?php echo htmlspecialchars($message); ?></p>
+        </div>
+        <?php
+    }
+
     unset($_SESSION['flash_message']);
+    unset($_SESSION['flash_type']);
 }
 ?>

@@ -31,5 +31,6 @@
 </footer>
 
 <script src="<?php echo asset('js/main.js'); ?>"></script>
+<script src="<?php echo asset('js/search.js'); ?>"></script>
 </body>
 </html>

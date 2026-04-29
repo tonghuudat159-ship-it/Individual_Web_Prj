@@ -7,6 +7,11 @@
 // Load configuration
 require_once '../config/app.php';
 
+// Start session for flash messages and future auth features
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Load helpers
 require_once '../app/helpers/url.php';
 

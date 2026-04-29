@@ -1,230 +1,277 @@
 <?php
 /**
  * Course Detail View
- * Shows complete course information, instructor details, reviews, and enrollment options
+ * Shows complete course information, instructor details, lessons, locations, and related courses
  */
+
+$breadcrumbs = [
+    [
+        'label' => 'Home',
+        'url' => base_url('index.php'),
+    ],
+    [
+        'label' => 'Courses',
+        'url' => base_url('courses.php'),
+    ],
+];
+
+if ($course !== null) {
+    $breadcrumbs[] = [
+        'label' => $course['category_name'],
+        'url' => base_url('courses.php?category=' . urlencode($course['category_slug'])),
+    ];
+    $breadcrumbs[] = [
+        'label' => $course['title'],
+        'url' => null,
+    ];
+} else {
+    $breadcrumbs[] = [
+        'label' => 'Course Not Found',
+        'url' => null,
+    ];
+}
+
+$courseThumbnailPath = $course !== null ? trim((string) ($course['thumbnail'] ?? '')) : '';
+$courseThumbnailFile = ROOT_PATH . '/public/images/' . ltrim($courseThumbnailPath, '/');
+$hasCourseThumbnail = $courseThumbnailPath !== '' && file_exists($courseThumbnailFile);
+
+$instructorAvatarPath = $course !== null ? trim((string) ($course['instructor_avatar'] ?? '')) : '';
+$instructorAvatarFile = ROOT_PATH . '/public/images/' . ltrim($instructorAvatarPath, '/');
+$hasInstructorAvatar = $instructorAvatarPath !== '' && file_exists($instructorAvatarFile);
+
+$priceText = $course !== null ? number_format((float) $course['price'], 0, ',', '.') . ' VND' : '';
+$lessonCount = count($lessons);
 ?>
 <main class="main-content">
-    <!-- Breadcrumb -->
-    <nav class="breadcrumb-nav">
-        <div class="breadcrumb-container">
-            <a href="<?php echo base_url('index.php'); ?>">Home</a>
-            <span class="breadcrumb-separator">></span>
-            <a href="<?php echo base_url('courses.php'); ?>">Courses</a>
-            <span class="breadcrumb-separator">></span>
-            <a href="<?php echo base_url('courses.php'); ?>">Web Development</a>
-            <span class="breadcrumb-separator">></span>
-            <span class="breadcrumb-current">PHP & MySQL Web Development</span>
-        </div>
-    </nav>
+    <?php require APP_PATH . '/views/partials/breadcrumb.php'; ?>
 
-    <!-- Course Hero Section -->
-    <section class="course-hero">
-        <div class="course-hero-container">
-            <div class="course-hero-content">
-                <h1>PHP & MySQL Web Development for Beginners</h1>
-                <p class="course-description">Build dynamic websites using PHP, MySQL, HTML, CSS, and JavaScript.</p>
-                
-                <div class="course-meta-info">
-                    <div class="meta-item">
-                        <span class="meta-label">Rating:</span>
-                        <span class="meta-value">
-                            <span class="stars">★</span> 4.7
-                        </span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Students:</span>
-                        <span class="meta-value">1,245</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Instructor:</span>
-                        <span class="meta-value">Nguyen Van A</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Language:</span>
-                        <span class="meta-value">English</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Last updated:</span>
-                        <span class="meta-value">04/2026</span>
+    <?php if ($course === null): ?>
+        <section class="course-not-found-section">
+            <div class="course-not-found-container">
+                <h1>Course not found</h1>
+                <p>The course you are looking for does not exist or is no longer available.</p>
+                <?php if ($courseError !== ''): ?>
+                    <div class="courses-message courses-message-error"><?php echo htmlspecialchars($courseError); ?></div>
+                <?php endif; ?>
+                <a href="<?php echo base_url('courses.php'); ?>" class="btn btn-secondary">Back to Courses</a>
+            </div>
+        </section>
+    <?php else: ?>
+        <section class="course-hero">
+            <div class="course-hero-container">
+                <div class="course-hero-content">
+                    <h1><?php echo htmlspecialchars($course['title']); ?></h1>
+                    <p class="course-description"><?php echo htmlspecialchars($course['short_description']); ?></p>
+
+                    <div class="course-meta-info">
+                        <div class="meta-item">
+                            <span class="meta-label">Rating:</span>
+                            <span class="meta-value"><span class="stars">&#9733;</span> <?php echo htmlspecialchars((string) $course['rating']); ?></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Students:</span>
+                            <span class="meta-value"><?php echo number_format((int) $course['total_students']); ?></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Instructor:</span>
+                            <span class="meta-value"><?php echo htmlspecialchars($course['instructor_name']); ?></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Language:</span>
+                            <span class="meta-value"><?php echo htmlspecialchars($course['language']); ?></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Level:</span>
+                            <span class="meta-value"><?php echo htmlspecialchars($course['level']); ?></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Duration:</span>
+                            <span class="meta-value"><?php echo htmlspecialchars((string) $course['duration_hours']); ?> hours</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Category:</span>
+                            <span class="meta-value"><?php echo htmlspecialchars($course['category_name']); ?></span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Course Main Content -->
-    <section class="course-content-section">
-        <div class="course-content-container">
-            <div class="course-main">
-                <!-- What You Will Learn -->
-                <section class="course-section learning-outcomes">
-                    <h2>What You Will Learn</h2>
-                    <div class="learning-grid">
-                        <div class="learning-item">
-                            <span class="checkmark">✓</span>
-                            <p>Build dynamic websites with PHP and MySQL</p>
-                        </div>
-                        <div class="learning-item">
-                            <span class="checkmark">✓</span>
-                            <p>Create basic login and register systems</p>
-                        </div>
-                        <div class="learning-item">
-                            <span class="checkmark">✓</span>
-                            <p>Work with database-driven pages</p>
-                        </div>
-                        <div class="learning-item">
-                            <span class="checkmark">✓</span>
-                            <p>Understand simple server-side validation</p>
-                        </div>
-                        <div class="learning-item">
-                            <span class="checkmark">✓</span>
-                            <p>Use JavaScript for interactive behavior</p>
-                        </div>
-                        <div class="learning-item">
-                            <span class="checkmark">✓</span>
-                            <p>Structure a PHP project clearly</p>
-                        </div>
-                    </div>
-                </section>
+        <section class="course-content-section">
+            <div class="course-content-container">
+                <div class="course-main">
+                    <?php if ($courseError !== ''): ?>
+                        <div class="courses-message courses-message-error"><?php echo htmlspecialchars($courseError); ?></div>
+                    <?php endif; ?>
 
-                <!-- Course Content -->
-                <section class="course-section course-curriculum">
-                    <h2>Course Content</h2>
-                    <div class="lessons-list">
-                        <?php
-                        $lessons = [
-                            'Introduction to Web Programming',
-                            'Setting up XAMPP',
-                            'PHP Basics',
-                            'Working with MySQL',
-                            'Building Dynamic Pages',
-                            'Final Project Demo'
-                        ];
-
-                        foreach ($lessons as $index => $lesson) {
-                            ?>
-                            <div class="lesson-item">
-                                <span class="lesson-number"><?php echo $index + 1; ?></span>
-                                <span class="lesson-title"><?php echo htmlspecialchars($lesson); ?></span>
+                    <section class="course-section learning-outcomes">
+                        <h2>What You Will Learn</h2>
+                        <div class="learning-grid">
+                            <div class="learning-item">
+                                <span class="checkmark">&#10003;</span>
+                                <p>Build practical skills through this course</p>
                             </div>
-                            <?php
-                        }
-                        ?>
-                    </div>
-                </section>
-
-                <!-- Instructor Section -->
-                <section class="course-section instructor-section">
-                    <h2>Meet Your Instructor</h2>
-                    <div class="instructor-card">
-                        <div class="instructor-avatar">
-                            <div class="avatar-placeholder">NA</div>
+                            <div class="learning-item">
+                                <span class="checkmark">&#10003;</span>
+                                <p>Understand the key concepts step by step</p>
+                            </div>
+                            <div class="learning-item">
+                                <span class="checkmark">&#10003;</span>
+                                <p>Apply knowledge in real-world examples</p>
+                            </div>
+                            <div class="learning-item">
+                                <span class="checkmark">&#10003;</span>
+                                <p>Learn from structured lessons and instructor guidance</p>
+                            </div>
                         </div>
-                        <div class="instructor-info">
-                            <h3>Nguyen Van A</h3>
-                            <p>A web development instructor with experience in PHP, MySQL, and practical web application projects.</p>
-                        </div>
-                    </div>
-                </section>
+                    </section>
 
-                <!-- Learning Support Locations -->
-                <section class="course-section locations-section">
-                    <h2>Learning Support Locations</h2>
-                    <div class="locations-table-wrapper">
-                        <table class="locations-table">
-                            <thead>
-                                <tr>
-                                    <th>Location Name</th>
-                                    <th>Type</th>
-                                    <th>Address</th>
-                                    <th>Map</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>DatEdu Online Platform</td>
-                                    <td><span class="type-badge type-online">Online</span></td>
-                                    <td>Remote Learning</td>
-                                    <td><a href="https://www.google.com/maps" target="_blank" class="map-link">Website</a></td>
-                                </tr>
-                                <tr>
-                                    <td>HCMUT Learning Center</td>
-                                    <td><span class="type-badge type-offline">Offline</span></td>
-                                    <td>268 Ly Thuong Kiet, District 10, Ho Chi Minh City</td>
-                                    <td><a href="https://www.google.com/maps" target="_blank" class="map-link">View Map</a></td>
-                                </tr>
-                                <tr>
-                                    <td>District 1 Partner Center</td>
-                                    <td><span class="type-badge type-hybrid">Hybrid</span></td>
-                                    <td>District 1, Ho Chi Minh City</td>
-                                    <td><a href="https://www.google.com/maps" target="_blank" class="map-link">View Map</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <!-- Related Courses -->
-                <section class="course-section related-courses">
-                    <h2>Related Courses</h2>
-                    <div class="related-courses-grid">
-                        <?php
-                        $relatedCourses = [
-                            ['title' => 'JavaScript Essentials', 'instructor' => 'Tran Thi B', 'rating' => 4.6, 'price' => '399,000 VND'],
-                            ['title' => 'HTML CSS Responsive Web Design', 'instructor' => 'Le Van C', 'rating' => 4.7, 'price' => '449,000 VND'],
-                            ['title' => 'SQL Database Design Basics', 'instructor' => 'Pham Thi D', 'rating' => 4.5, 'price' => '379,000 VND']
-                        ];
-
-                        foreach ($relatedCourses as $course) {
-                            ?>
-                            <div class="course-card-mini">
-                                <div class="course-thumbnail-mini">
-                                    <div class="thumbnail-placeholder-mini">Course</div>
-                                </div>
-                                <div class="course-info-mini">
-                                    <h4><?php echo htmlspecialchars($course['title']); ?></h4>
-                                    <p class="instructor-name"><?php echo htmlspecialchars($course['instructor']); ?></p>
-                                    <div class="rating-price">
-                                        <span class="rating"><span class="stars">★</span> <?php echo $course['rating']; ?></span>
-                                        <span class="price"><?php echo htmlspecialchars($course['price']); ?></span>
+                    <section class="course-section course-curriculum">
+                        <h2>Course Content</h2>
+                        <?php if (!empty($lessons)): ?>
+                            <div class="lessons-list">
+                                <?php foreach ($lessons as $lesson): ?>
+                                    <div class="lesson-item">
+                                        <div class="lesson-order-block">
+                                            <span class="lesson-number"><?php echo (int) $lesson['sort_order']; ?></span>
+                                        </div>
+                                        <div class="lesson-content">
+                                            <span class="lesson-title"><?php echo htmlspecialchars($lesson['title']); ?></span>
+                                            <div class="lesson-meta">
+                                                <span><?php echo (int) $lesson['duration_minutes']; ?> min</span>
+                                                <?php if ((int) $lesson['is_preview'] === 1): ?>
+                                                    <span class="preview-badge">Preview</span>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
-                            <?php
-                        }
-                        ?>
-                    </div>
-                </section>
-            </div>
+                        <?php else: ?>
+                            <p class="course-empty-text">No lessons available yet.</p>
+                        <?php endif; ?>
+                    </section>
 
-            <!-- Purchase Card Sidebar -->
-            <aside class="course-sidebar">
-                <div class="purchase-card">
-                    <div class="course-thumbnail-large">
-                        <div class="thumbnail-placeholder-large">Course Thumbnail</div>
-                    </div>
+                    <section class="course-section instructor-section">
+                        <h2>Meet Your Instructor</h2>
+                        <div class="instructor-card">
+                            <div class="instructor-avatar">
+                                <?php if ($hasInstructorAvatar): ?>
+                                    <img
+                                        src="<?php echo htmlspecialchars(asset('images/' . ltrim($instructorAvatarPath, '/'))); ?>"
+                                        alt="<?php echo htmlspecialchars($course['instructor_name']); ?>"
+                                        class="instructor-avatar-image"
+                                    >
+                                <?php else: ?>
+                                    <div class="avatar-placeholder">
+                                        <?php echo htmlspecialchars(strtoupper(substr($course['instructor_name'], 0, 1))); ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="instructor-info">
+                                <h3><?php echo htmlspecialchars($course['instructor_name']); ?></h3>
+                                <?php if (!empty($course['instructor_expertise'])): ?>
+                                    <p class="instructor-expertise"><?php echo htmlspecialchars($course['instructor_expertise']); ?></p>
+                                <?php endif; ?>
+                                <p><?php echo htmlspecialchars($course['instructor_bio'] ?: 'Instructor information will be updated soon.'); ?></p>
+                            </div>
+                        </div>
+                    </section>
 
-                    <div class="course-price">
-                        <h3>499,000 VND</h3>
-                    </div>
+                    <section class="course-section locations-section">
+                        <h2>Learning Support Locations</h2>
+                        <?php if (!empty($locations)): ?>
+                            <div class="locations-table-wrapper">
+                                <table class="locations-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Address</th>
+                                            <th>Support</th>
+                                            <th>Availability</th>
+                                            <th>Map</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($locations as $location): ?>
+                                            <?php $typeClass = 'type-' . htmlspecialchars($location['type']); ?>
+                                            <tr>
+                                                <td><?php echo htmlspecialchars($location['name']); ?></td>
+                                                <td><span class="type-badge <?php echo $typeClass; ?>"><?php echo htmlspecialchars(ucfirst($location['type'])); ?></span></td>
+                                                <td>
+                                                    <?php echo htmlspecialchars($location['address']); ?><br>
+                                                    <span class="location-city"><?php echo htmlspecialchars($location['city']); ?></span>
+                                                </td>
+                                                <td><?php echo htmlspecialchars($location['support_type'] ?: 'Support available'); ?></td>
+                                                <td><?php echo htmlspecialchars($location['availability_note'] ?: 'Available for enrolled students'); ?></td>
+                                                <td>
+                                                    <?php if ($location['type'] !== 'online' && !empty($location['google_maps_url'])): ?>
+                                                        <a href="<?php echo htmlspecialchars($location['google_maps_url']); ?>" target="_blank" rel="noopener" class="map-link">View Map</a>
+                                                    <?php else: ?>
+                                                        <span class="online-support-label">Online Support</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php else: ?>
+                            <p class="course-empty-text">No learning support locations available yet.</p>
+                        <?php endif; ?>
+                    </section>
 
-                    <div class="purchase-buttons">
-                        <button class="btn btn-primary btn-add-cart">Add to Cart</button>
-                        <button class="btn btn-secondary btn-enroll">Enroll Now</button>
-                    </div>
-
-                    <div class="course-includes">
-                        <h4>This course includes:</h4>
-                        <ul>
-                            <li>12 hours of content</li>
-                            <li>24 lessons</li>
-                            <li>Lifetime access</li>
-                            <li>Certificate demo</li>
-                        </ul>
-                    </div>
+                    <?php if (!empty($relatedCourses)): ?>
+                        <section class="course-section related-courses">
+                            <h2>Related Courses</h2>
+                            <div class="related-courses-grid">
+                                <?php $currentCourse = $course; ?>
+                                <?php foreach ($relatedCourses as $relatedCourse): ?>
+                                    <?php $course = $relatedCourse; ?>
+                                    <?php require APP_PATH . '/views/partials/course-card.php'; ?>
+                                <?php endforeach; ?>
+                                <?php $course = $currentCourse; ?>
+                            </div>
+                        </section>
+                    <?php endif; ?>
                 </div>
-            </aside>
-        </div>
-    </section>
+
+                <aside class="course-sidebar">
+                    <div class="purchase-card">
+                        <div class="course-thumbnail-large">
+                            <?php if ($hasCourseThumbnail): ?>
+                                <img
+                                    src="<?php echo htmlspecialchars(asset('images/' . ltrim($courseThumbnailPath, '/'))); ?>"
+                                    alt="<?php echo htmlspecialchars($course['title']); ?>"
+                                    class="course-thumbnail-image"
+                                >
+                            <?php else: ?>
+                                <div class="thumbnail-placeholder-large">DatEdu</div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="course-price">
+                            <h3><?php echo htmlspecialchars($priceText); ?></h3>
+                        </div>
+
+                        <div class="purchase-buttons">
+                            <button type="button" class="btn btn-primary btn-add-cart">Add to Cart</button>
+                            <a href="<?php echo base_url('checkout.php'); ?>" class="btn btn-secondary btn-enroll">Enroll Now</a>
+                        </div>
+
+                        <div class="course-includes">
+                            <h4>This course includes:</h4>
+                            <ul>
+                                <li><?php echo htmlspecialchars((string) $course['duration_hours']); ?> hours of content</li>
+                                <li><?php echo $lessonCount; ?> lessons</li>
+                                <li>Lifetime access</li>
+                                <li>Certificate demo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    <?php endif; ?>
 </main>

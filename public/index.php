@@ -7,6 +7,16 @@
 // Load configuration
 require_once '../config/app.php';
 
+// Start session for flash messages and future auth features
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Load database and models for homepage data
+require_once '../config/database.php';
+require_once '../app/models/Category.php';
+require_once '../app/models/Course.php';
+
 // Load helpers
 require_once '../app/helpers/url.php';
 
@@ -14,6 +24,23 @@ require_once '../app/helpers/url.php';
 $pageTitle = "DatEdu - Learn Practical Online Courses";
 $pageDescription = "DatEdu is an online course platform for practical courses in programming, business, design, and more.";
 $activePage = "home";
+
+// Homepage data
+$categories = [];
+$featuredCourses = [];
+$homeError = '';
+
+try {
+    $pdo = getPDO();
+    $categoryModel = new Category($pdo);
+    $courseModel = new Course($pdo);
+
+    $categories = $categoryModel->getAllCategories();
+    $featuredCourses = $courseModel->getFeaturedCourses(8);
+} catch (Throwable $exception) {
+    $homeError = 'We could not load some homepage data right now.';
+    error_log('DatEdu home page data error: ' . $exception->getMessage());
+}
 
 // Use output buffering to capture view content
 ob_start();

@@ -10,15 +10,43 @@
             <h1>Log in to your DatEdu account</h1>
             <p class="auth-description">Continue learning with your enrolled courses.</p>
 
-            <form class="auth-form" method="post" action="#">
+            <?php if (!empty($errors)): ?>
+                <div class="auth-error-box">
+                    <ul class="auth-error-list">
+                        <?php foreach ($errors as $error): ?>
+                            <li><?php echo htmlspecialchars($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+
+            <form class="auth-form" method="post" action="">
+                <?php echo csrfField(); ?>
+                <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($redirectPath); ?>">
+
                 <div class="form-group">
                     <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="form-input"
+                        placeholder="your@email.com"
+                        value="<?php echo htmlspecialchars($old['email'] ?? ''); ?>"
+                        required
+                    >
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password *</label>
-                    <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-input"
+                        placeholder="Enter your password"
+                        required
+                    >
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-auth">Log In</button>

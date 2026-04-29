@@ -19,6 +19,15 @@
 
   .nav-list {
     gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-search-item {
+    min-width: 240px;
+  }
+
+  .navbar-search {
+    max-width: 100%;
   }
 
   /* Course Grid */
@@ -102,6 +111,26 @@
     flex-direction: column;
     gap: 0;
     padding: 1rem;
+  }
+
+  .nav-search-item {
+    width: 100%;
+    min-width: 0;
+    padding: 0.75rem 1rem 1rem;
+  }
+
+  .navbar-search {
+    max-width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .search-results {
+    left: 0;
+    right: 0;
+    max-width: 100%;
   }
 
   .nav-link {
@@ -269,6 +298,11 @@
   .navbar-toggle {
     font-size: 1.3rem;
     padding: 0.25rem;
+  }
+
+  .nav-search-item {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   /* Hero */
