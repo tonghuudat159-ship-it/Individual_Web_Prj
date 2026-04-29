@@ -608,19 +608,69 @@
   gap: 1rem;
 }
 
-.btn-add-cart,
+.add-to-cart-btn,
 .btn-enroll {
   width: 100%;
 }
 
-.btn-add-cart {
+.add-to-cart-btn {
   background-color: #fff;
   color: #5624d0;
   border: 2px solid #5624d0;
 }
 
-.btn-add-cart:hover {
+.add-to-cart-btn:hover {
   background-color: #f0f0f0;
+}
+
+.add-to-cart-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.purchase-note,
+.purchase-status {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.purchase-note {
+  color: #666;
+}
+
+.purchase-status-success {
+  color: #166534;
+  font-weight: 600;
+}
+
+.purchase-status-info {
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.cart-message {
+  display: none;
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.cart-message.success,
+.cart-message.error {
+  display: block;
+}
+
+.cart-message.success {
+  background-color: #ecfdf5;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.cart-message.error {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
 }
 
 .course-includes {
@@ -770,7 +820,7 @@
     flex-direction: row;
   }
 
-  .btn-add-cart,
+  .add-to-cart-btn,
   .btn-enroll {
     width: 100%;
     padding: 0.6rem 1rem;

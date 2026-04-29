@@ -1,7 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- XML Sitemap for SEO
-     To be updated with actual URLs during development
--->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <!-- Sitemap entries will be populated during development -->
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/courses.php</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/contact.php</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/login.php</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/register.php</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/course-detail.php?slug=php-mysql-web-development-for-beginners</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/course-detail.php?slug=javascript-essentials</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/course-detail.php?slug=html-css-responsive-web-design</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/course-detail.php?slug=python-for-data-analysis</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/course-detail.php?slug=data-science-fundamentals</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/course-detail.php?slug=ui-ux-design-fundamentals</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>http://localhost/Individual_Web_Prj/public/course-detail.php?slug=digital-marketing-masterclass</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>

@@ -41,6 +41,9 @@ $hasInstructorAvatar = $instructorAvatarPath !== '' && file_exists($instructorAv
 
 $priceText = $course !== null ? number_format((float) $course['price'], 0, ',', '.') . ' VND' : '';
 $lessonCount = count($lessons);
+$loginRedirectUrl = $course !== null
+    ? base_url('login.php?redirect=' . urlencode('course-detail.php?slug=' . $course['slug']))
+    : base_url('login.php');
 ?>
 <main class="main-content">
     <?php require APP_PATH . '/views/partials/breadcrumb.php'; ?>
@@ -256,8 +259,29 @@ $lessonCount = count($lessons);
                         </div>
 
                         <div class="purchase-buttons">
-                            <button type="button" class="btn btn-primary btn-add-cart">Add to Cart</button>
-                            <a href="<?php echo base_url('checkout.php'); ?>" class="btn btn-secondary btn-enroll">Enroll Now</a>
+                            <?php if (!$isLoggedIn): ?>
+                                <a href="<?php echo htmlspecialchars($loginRedirectUrl); ?>" class="btn btn-primary">Add to Cart</a>
+                                <a href="<?php echo htmlspecialchars($loginRedirectUrl); ?>" class="btn btn-secondary btn-enroll">Enroll Now</a>
+                                <p class="purchase-note">Please log in to add this course to your cart.</p>
+                            <?php elseif ($isEnrolled): ?>
+                                <p class="purchase-status purchase-status-success">You are already enrolled in this course.</p>
+                                <a href="<?php echo base_url('my-learning.php'); ?>" class="btn btn-primary">Go to My Learning</a>
+                            <?php elseif ($isInCart): ?>
+                                <p class="purchase-status purchase-status-info">This course is already in your cart.</p>
+                                <a href="<?php echo base_url('cart.php'); ?>" class="btn btn-primary">Go to Cart</a>
+                                <a href="<?php echo base_url('courses.php'); ?>" class="btn btn-secondary">Continue Browsing</a>
+                            <?php else: ?>
+                                <button
+                                    type="button"
+                                    class="btn btn-primary add-to-cart-btn"
+                                    data-course-id="<?php echo (int) $course['course_id']; ?>"
+                                >
+                                    Add to Cart
+                                </button>
+                                <a href="<?php echo base_url('cart.php'); ?>" class="btn btn-secondary btn-enroll">Enroll Now</a>
+                                <div id="cartMessage" class="cart-message" aria-live="polite"></div>
+                                <p class="purchase-note">Add this course to your cart first. Checkout will be completed in a later prompt.</p>
+                            <?php endif; ?>
                         </div>
 
                         <div class="course-includes">

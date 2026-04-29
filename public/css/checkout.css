@@ -4,11 +4,30 @@
  */
 
 /* Cart Page Styles */
+.cart-page-section {
+  padding: 3rem 2rem 4rem;
+}
+
+.cart-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
 .cart-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
-  margin-top: 2rem;
 }
 
 .cart-items-column {
@@ -24,11 +43,11 @@
 .cart-item {
   background-color: #fff;
   border: 1px solid #e0e0e0;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1.25rem;
   transition: box-shadow 0.3s ease;
 }
 
@@ -36,8 +55,43 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
+.cart-item-media {
+  width: 100%;
+}
+
+.cart-item-thumbnail,
+.cart-item-thumbnail-placeholder {
+  width: 100%;
+  height: 130px;
+  border-radius: 0.5rem;
+}
+
+.cart-item-thumbnail {
+  object-fit: cover;
+  display: block;
+}
+
+.cart-item-thumbnail-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  color: #5624d0;
+  font-weight: 700;
+}
+
 .cart-item-info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.cart-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .cart-item-title {
@@ -47,17 +101,20 @@
   margin-bottom: 0.5rem;
 }
 
-.cart-item-instructor {
+.cart-item-instructor,
+.cart-item-category,
+.cart-item-description {
   color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
 }
 
-.cart-item-rating {
+.cart-item-meta {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
   font-size: 0.9rem;
+  color: #666;
 }
 
 .rating-stars {
@@ -70,8 +127,9 @@
 
 .cart-item-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  gap: 1rem;
   padding-top: 1rem;
   border-top: 1px solid #e0e0e0;
 }
@@ -80,6 +138,7 @@
   font-size: 1.2rem;
   font-weight: 700;
   color: #5624d0;
+  white-space: nowrap;
 }
 
 .btn-remove {
@@ -98,6 +157,19 @@
   text-decoration: underline;
 }
 
+.btn-remove:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.btn-sm-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+}
+
 .cart-summary-column {
   flex: 1;
   position: sticky;
@@ -108,7 +180,7 @@
 .order-summary-card {
   background-color: #fff;
   border: 1px solid #e0e0e0;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
@@ -141,6 +213,11 @@
   padding-top: 1rem;
 }
 
+.summary-total-final {
+  border-top: 1px solid #e0e0e0;
+  margin-top: 1rem;
+}
+
 .summary-divider {
   height: 1px;
   background-color: #e0e0e0;
@@ -151,12 +228,35 @@
   margin-top: 1.5rem;
 }
 
+.cart-empty-state {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.75rem;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.cart-empty-state h2 {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.cart-empty-state p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
 /* Checkout Page Styles */
 .checkout-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
   margin-top: 2rem;
+}
+
+.checkout-form-main {
+  display: block;
 }
 
 .checkout-form-column {
@@ -211,6 +311,20 @@
   box-shadow: 0 0 0 3px rgba(86, 36, 208, 0.1);
 }
 
+.checkout-error-box {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.checkout-error-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
 /* Payment Method */
 .payment-method-form {
   display: flex;
@@ -251,6 +365,11 @@
   cursor: pointer;
   font-weight: 500;
   color: #333;
+}
+
+.checkout-note {
+  color: #666;
+  line-height: 1.6;
 }
 
 /* Credit Card Demo */
@@ -359,6 +478,10 @@
   color: #333;
 }
 
+.summary-item-title {
+  max-width: 70%;
+}
+
 .summary-item {
   display: flex;
   justify-content: space-between;
@@ -460,6 +583,66 @@
   max-width: 200px;
 }
 
+.payment-success-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.payment-success-error-card {
+  max-width: 760px;
+}
+
+.purchased-courses-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.purchased-courses-card h2 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 1.25rem;
+}
+
+.purchased-course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.purchased-course-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.purchased-course-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.purchased-course-main h3 {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.35rem;
+}
+
+.purchased-course-main p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.purchased-course-link {
+  min-width: 130px;
+}
+
 /* My Learning Styles */
 .my-learning-grid {
   display: grid;
@@ -483,6 +666,32 @@
 .my-learning-card:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   transform: translateY(-2px);
+}
+
+.my-learning-thumbnail-wrap {
+  width: 100%;
+  height: 180px;
+  background-color: #f8f8f8;
+}
+
+.my-learning-thumbnail,
+.my-learning-thumbnail-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+.my-learning-thumbnail {
+  object-fit: cover;
+  display: block;
+}
+
+.my-learning-thumbnail-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  color: #5624d0;
+  font-weight: 700;
 }
 
 .course-badge {
@@ -552,6 +761,16 @@
   font-weight: 600;
 }
 
+.meta-value.status-completed {
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.meta-value.status-cancelled {
+  color: #991b1b;
+  font-weight: 600;
+}
+
 .learning-card-footer {
   padding: 1rem 1.5rem;
   border-top: 1px solid #e0e0e0;
@@ -587,10 +806,27 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .cart-page-section {
+    padding: 2rem 1rem 3rem;
+  }
+
   .cart-layout,
   .checkout-layout {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  .cart-item {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-item-header {
+    flex-direction: column;
+  }
+
+  .cart-item-footer {
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   .cart-summary-column,
@@ -612,8 +848,17 @@
     max-width: 100%;
   }
 
+  .payment-success-layout {
+    grid-template-columns: 1fr;
+  }
+
   .payment-success-card {
     padding: 2rem;
+  }
+
+  .purchased-course-item {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .my-learning-grid {

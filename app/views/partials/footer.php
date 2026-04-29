@@ -32,5 +32,6 @@
 
 <script src="<?php echo asset('js/main.js'); ?>"></script>
 <script src="<?php echo asset('js/search.js'); ?>"></script>
+<script src="<?php echo asset('js/cart.js'); ?>"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@
 ?>
 <main class="main-content">
     <!-- Breadcrumb -->
-    <nav class="breadcrumb-nav">
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
         <div class="breadcrumb-container">
             <a href="<?php echo base_url('index.php'); ?>">Home</a>
             <span class="breadcrumb-separator">></span>

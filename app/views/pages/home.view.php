@@ -23,7 +23,7 @@
         </section>
     <?php endif; ?>
 
-    <section class="categories-section">
+    <section class="categories-section popular-categories">
         <div class="categories-container">
             <h3 class="section-title">Popular Categories</h3>
             <p class="section-subtitle">Browse practical learning paths across the subjects students explore most.</p>
@@ -45,7 +45,7 @@
         </div>
     </section>
 
-    <section class="home-featured-section">
+    <section class="home-featured-section featured-courses">
         <div class="courses-container">
             <h3 class="section-title">Featured Courses</h3>
             <p class="section-subtitle">Start with some of DatEdu's most popular and highly rated learning options.</p>

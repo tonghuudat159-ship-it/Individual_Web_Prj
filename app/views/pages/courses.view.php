@@ -72,7 +72,7 @@ $sortOptions = [
         </div>
     </section>
 
-    <section class="courses-catalog-section">
+    <section class="courses-catalog-section courses-page">
         <div class="courses-container">
             <div class="courses-catalog-layout">
                 <aside class="courses-sidebar">

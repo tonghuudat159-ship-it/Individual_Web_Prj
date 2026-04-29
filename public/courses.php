@@ -83,7 +83,9 @@ try {
 $pageTitle = $selectedCategory !== null
     ? $selectedCategory['name'] . ' Courses | DatEdu'
     : 'All Online Courses | DatEdu';
-$pageDescription = 'Browse practical online courses on DatEdu with category filtering, sorting, and pagination.';
+$pageDescription = $selectedCategory !== null
+    ? 'Browse practical ' . $selectedCategory['name'] . ' courses on DatEdu.'
+    : 'Browse DatEdu online courses with category filtering, sorting, and pagination.';
 $activePage = 'courses';
 
 // Use output buffering to capture view content

@@ -15,9 +15,12 @@ if (session_status() === PHP_SESSION_NONE) {
 // Load database and models
 require_once '../config/database.php';
 require_once '../app/models/Course.php';
+require_once '../app/models/Cart.php';
+require_once '../app/models/Enrollment.php';
 
 // Load helpers
 require_once '../app/helpers/url.php';
+require_once '../app/helpers/auth.php';
 
 // Load course detail data
 $slug = isset($_GET['slug']) ? trim((string) $_GET['slug']) : '';
@@ -26,6 +29,9 @@ $lessons = [];
 $locations = [];
 $relatedCourses = [];
 $courseError = '';
+$isLoggedIn = isLoggedIn();
+$isInCart = false;
+$isEnrolled = false;
 
 if ($slug !== '') {
     try {
@@ -37,6 +43,17 @@ if ($slug !== '') {
             $lessons = $courseModel->getCourseLessons((int) $course['course_id']);
             $locations = $courseModel->getCourseLocations((int) $course['course_id']);
             $relatedCourses = $courseModel->getRelatedCourses((int) $course['course_id'], (int) $course['category_id'], 4);
+
+            if ($isLoggedIn) {
+                $userId = currentUserId();
+
+                if ($userId !== null) {
+                    $cartModel = new Cart($pdo);
+                    $enrollmentModel = new Enrollment($pdo);
+                    $isInCart = $cartModel->isCourseInCart($userId, (int) $course['course_id']);
+                    $isEnrolled = $enrollmentModel->isUserEnrolled($userId, (int) $course['course_id']);
+                }
+            }
         }
     } catch (Throwable $exception) {
         $courseError = 'We could not load this course right now.';

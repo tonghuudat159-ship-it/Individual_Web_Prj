@@ -24,7 +24,7 @@ function isActive($page) {
         <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle menu">
             <span class="hamburger">&#9776;</span>
         </button>
-        <nav class="site-navbar navbar-links" id="navbar-links">
+        <nav class="site-navbar navbar-links" id="navbar-links" aria-label="Primary">
             <ul class="nav-list">
                 <li><a href="<?php echo base_url('index.php'); ?>" class="nav-link <?php echo isActive('home'); ?>">Home</a></li>
                 <li><a href="<?php echo base_url('courses.php'); ?>" class="nav-link <?php echo isActive('courses'); ?>">Courses</a></li>
@@ -41,7 +41,7 @@ function isActive($page) {
                     </div>
                 </li>
                 <li><a href="<?php echo base_url('contact.php'); ?>" class="nav-link <?php echo isActive('contact'); ?>">Contact</a></li>
-                <li><a href="<?php echo base_url('cart.php'); ?>" class="nav-link <?php echo isActive('cart'); ?>">Cart</a></li>
+                <li><a href="<?php echo base_url('cart.php'); ?>" class="nav-link <?php echo isActive('cart'); ?>">Cart <span id="cartCount"></span></a></li>
                 <li><a href="<?php echo base_url('my-learning.php'); ?>" class="nav-link <?php echo isActive('my-learning'); ?>">My Learning</a></li>
 
                 <?php if (function_exists('isLoggedIn') && isLoggedIn()): ?>

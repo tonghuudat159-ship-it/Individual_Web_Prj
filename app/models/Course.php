@@ -170,6 +170,30 @@ class Course
         return $course ?: null;
     }
 
+    public function getCourseById(int $courseId): ?array
+    {
+        $sql = "
+            SELECT
+                c.course_id,
+                c.title,
+                c.slug,
+                c.status
+            FROM courses c
+            WHERE c.course_id = :course_id
+              AND c.status = :status
+            LIMIT 1
+        ";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':course_id', $courseId, PDO::PARAM_INT);
+        $statement->bindValue(':status', 'published');
+        $statement->execute();
+
+        $course = $statement->fetch();
+
+        return $course ?: null;
+    }
+
     public function getCourseLessons(int $courseId): array
     {
         $sql = "

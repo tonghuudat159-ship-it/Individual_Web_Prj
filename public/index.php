@@ -22,7 +22,7 @@ require_once '../app/helpers/url.php';
 
 // Define page variables
 $pageTitle = "DatEdu - Learn Practical Online Courses";
-$pageDescription = "DatEdu is an online course platform for practical courses in programming, business, design, and more.";
+$pageDescription = "DatEdu is an online course platform where learners can explore practical courses in web development, data science, business, design, and more.";
 $activePage = "home";
 
 // Homepage data

@@ -12,13 +12,38 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once '../config/database.php';
+
 // Load helpers
 require_once '../app/helpers/url.php';
+require_once '../app/helpers/auth.php';
+require_once '../app/helpers/format.php';
+require_once '../app/models/Enrollment.php';
 
 // Define page variables
 $pageTitle = "My Learning | DatEdu";
 $pageDescription = "Access your enrolled DatEdu courses and continue learning.";
 $activePage = "my-learning";
+$enrollments = [];
+$myLearningError = '';
+
+if (!isLoggedIn()) {
+    setFlashMessage('Please login to view My Learning.', 'info');
+    redirect('login.php?redirect=my-learning.php');
+}
+
+try {
+    $pdo = getPDO();
+    $enrollmentModel = new Enrollment($pdo);
+    $userId = currentUserId();
+
+    if ($userId !== null) {
+        $enrollments = $enrollmentModel->getUserEnrollments($userId);
+    }
+} catch (Throwable $exception) {
+    $myLearningError = 'We could not load your enrolled courses right now.';
+    error_log('DatEdu my learning error: ' . $exception->getMessage());
+}
 
 // Use output buffering to capture view content
 ob_start();
