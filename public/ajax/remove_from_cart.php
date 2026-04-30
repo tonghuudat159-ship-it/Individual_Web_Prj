@@ -74,9 +74,11 @@ try {
         'message' => 'Cart item not found.',
     ]);
 } catch (Throwable $exception) {
+    error_log('DatEdu remove from cart AJAX error: ' . $exception->getMessage());
+
     respondJson([
         'success' => false,
-        'message' => 'Error: ' . $exception->getMessage(),
+        'message' => 'Could not remove course from cart.',
     ]);
 }
 ?>

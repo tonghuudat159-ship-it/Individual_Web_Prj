@@ -47,6 +47,20 @@ function normalizeLoginRedirect($value): string
         return 'index.php';
     }
 
+    $blockedTargets = [
+        'login.php',
+        'register.php',
+        'forgot-password.php',
+        'reset-password.php',
+        'logout.php',
+    ];
+
+    $redirectPath = strtolower((string) parse_url($redirect, PHP_URL_PATH));
+
+    if (in_array($redirectPath, $blockedTargets, true)) {
+        return 'index.php';
+    }
+
     return $redirect;
 }
 

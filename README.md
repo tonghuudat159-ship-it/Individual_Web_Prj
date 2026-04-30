@@ -1,8 +1,8 @@
-# DatEdu — Online Course Platform
+# DatEdu - Online Course Platform
 
 ## 1. Project Overview
 
-DatEdu is an online course platform inspired by Udemy. It allows users to browse courses, search dynamically, view course details, register and log in, add courses to a cart, complete checkout with a fake payment flow, and access purchased courses in **My Learning**.
+DatEdu is a mini Udemy-like online course platform. It allows users to browse courses, search dynamically, view course details, register and log in, add courses to a cart, complete checkout with a simulated payment flow, and access purchased courses in **My Learning**.
 
 This project was developed as an individual **Web Programming semester project**.
 
@@ -13,8 +13,8 @@ This project was developed as an individual **Web Programming semester project**
 
 Requirement mapping:
 
-- Products or items are implemented as **Courses**
-- Store locations are implemented as **Learning Support Locations**
+- Products/Items are implemented as **Courses**
+- Store locations are adapted as **Learning Support Locations**
 
 ## 3. Technology Stack
 
@@ -26,12 +26,12 @@ Requirement mapping:
 - CSS
 - JavaScript
 - AJAX with Fetch API
-- PDO for database connection
+- PDO for database access
 
 Project notes:
 
 - No PHP framework is used
-- No external payment gateway is used
+- No real payment gateway is used
 - Payment is simulated for local demo purposes
 
 ## 4. Main Features
@@ -58,6 +58,7 @@ Project notes:
 ### D. AJAX Search
 
 - Dynamic search without full page reload
+- Search implemented with Fetch API
 - JSON search endpoint
 
 ### E. Categories and Breadcrumbs
@@ -108,17 +109,44 @@ Project notes:
 
 ```text
 Individual_Web_Prj/
-├── public/
-├── app/
-│   ├── controllers/
-│   ├── models/
-│   ├── helpers/
-│   └── views/
-├── config/
-├── database/
-├── storage/
-├── docs/
-└── README.md
+|-- public/
+|   |-- index.php
+|   |-- courses.php
+|   |-- course-detail.php
+|   |-- cart.php
+|   |-- checkout.php
+|   |-- payment-success.php
+|   |-- my-learning.php
+|   |-- login.php
+|   |-- register.php
+|   |-- ajax/
+|   |-- css/
+|   |-- js/
+|   |-- images/
+|
+|-- app/
+|   |-- controllers/
+|   |-- models/
+|   |-- helpers/
+|   |-- views/
+|
+|-- config/
+|   |-- app.php
+|   |-- database.php
+|
+|-- database/
+|   |-- datedu_db.sql
+|   |-- sample_data.sql
+|   |-- erd-notes.md
+|
+|-- docs/
+|   |-- demo-checklist.md
+|   |-- report-outline.md
+|
+|-- storage/
+|   |-- logs/
+|
+|-- README.md
 ```
 
 Main folders:
@@ -127,8 +155,8 @@ Main folders:
 - `app/`: models, helpers, views, and controllers
 - `config/`: application and database configuration
 - `database/`: SQL schema and sample data
-- `storage/`: local runtime storage such as logs
 - `docs/`: report notes and demo notes
+- `storage/`: local runtime storage such as logs
 
 ## 6. Setup Instructions
 
@@ -138,10 +166,10 @@ Main folders:
    C:\BKU\Web_Programming\xampp\htdocs\Individual_Web_Prj
    ```
 
-2. Start XAMPP and enable:
+2. Start XAMPP Control Panel and enable:
 
-- Apache
-- MySQL
+   - Apache
+   - MySQL
 
 3. Open phpMyAdmin:
 
@@ -295,8 +323,10 @@ Before final submission, set:
 - Passwords are hashed with `password_hash()`
 - Login verification uses `password_verify()`
 - PDO prepared statements are used for database queries
+- AJAX search uses Fetch API
 - Checkout totals are calculated server-side
-- Fake payment does not store real card data
+- No real payment gateway is used
+- No real card data is stored
 - Reset tokens are stored as hashes
 
 ## 13. Author / Course Note

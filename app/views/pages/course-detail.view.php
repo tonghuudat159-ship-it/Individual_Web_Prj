@@ -280,7 +280,7 @@ $loginRedirectUrl = $course !== null
                                 </button>
                                 <a href="<?php echo base_url('cart.php'); ?>" class="btn btn-secondary btn-enroll">Enroll Now</a>
                                 <div id="cartMessage" class="cart-message" aria-live="polite"></div>
-                                <p class="purchase-note">Add this course to your cart first. Checkout will be completed in a later prompt.</p>
+                                <p class="purchase-note">Add this course to your cart first, then continue to checkout to complete your enrollment.</p>
                             <?php endif; ?>
                         </div>
 

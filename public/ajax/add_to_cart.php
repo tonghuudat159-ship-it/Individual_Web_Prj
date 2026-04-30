@@ -104,9 +104,11 @@ try {
         'message' => 'Could not add course to cart.',
     ]);
 } catch (Throwable $exception) {
+    error_log('DatEdu add to cart AJAX error: ' . $exception->getMessage());
+
     respondJson([
         'success' => false,
-        'message' => 'Error: ' . $exception->getMessage(),
+        'message' => 'Could not add course to cart.',
     ]);
 }
 ?>
