@@ -41,32 +41,82 @@
                     </div>
                     <div class="info-item">
                         <h4>Address</h4>
-                        <p>Ho Chi Minh City, Vietnam</p>
+                        <p><?php echo htmlspecialchars($contactAddress); ?></p>
+                        <a
+                            href="<?php echo htmlspecialchars($contactMapUrl); ?>"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="contact-map-link"
+                        >
+                            View Map
+                        </a>
                     </div>
                 </div>
 
                 <!-- Contact Form -->
                 <div class="contact-form-wrapper">
                     <h2>Send us a Message</h2>
-                    <form class="contact-form" method="post" action="#">
+                    <?php if (!empty($contactErrors)): ?>
+                        <div class="courses-message courses-message-error contact-form-feedback">
+                            <ul class="contact-error-list">
+                                <?php foreach ($contactErrors as $contactError): ?>
+                                    <li><?php echo htmlspecialchars($contactError); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+
+                    <form class="contact-form" method="post" action="">
+                        <?php echo csrfField(); ?>
                         <div class="form-group">
-                            <label for="fullname">Full Name *</label>
-                            <input type="text" id="fullname" name="fullname" class="form-input" placeholder="Your Full Name" required>
+                            <label for="full_name">Full Name *</label>
+                            <input
+                                type="text"
+                                id="full_name"
+                                name="full_name"
+                                class="form-input"
+                                placeholder="Your Full Name"
+                                value="<?php echo htmlspecialchars($contactOld['full_name'] ?? ''); ?>"
+                                required
+                            >
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" class="form-input" placeholder="Your Email Address" required>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form-input"
+                                placeholder="Your Email Address"
+                                value="<?php echo htmlspecialchars($contactOld['email'] ?? ''); ?>"
+                                required
+                            >
                         </div>
 
                         <div class="form-group">
                             <label for="subject">Subject *</label>
-                            <input type="text" id="subject" name="subject" class="form-input" placeholder="Message Subject" required>
+                            <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                class="form-input"
+                                placeholder="Message Subject"
+                                value="<?php echo htmlspecialchars($contactOld['subject'] ?? ''); ?>"
+                                required
+                            >
                         </div>
 
                         <div class="form-group">
                             <label for="message">Message *</label>
-                            <textarea id="message" name="message" class="form-textarea" placeholder="Your Message" rows="5" required></textarea>
+                            <textarea
+                                id="message"
+                                name="message"
+                                class="form-textarea"
+                                placeholder="Your Message"
+                                rows="5"
+                                required
+                            ><?php echo htmlspecialchars($contactOld['message'] ?? ''); ?></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>

@@ -44,6 +44,21 @@ $lessonCount = count($lessons);
 $loginRedirectUrl = $course !== null
     ? base_url('login.php?redirect=' . urlencode('course-detail.php?slug=' . $course['slug']))
     : base_url('login.php');
+$buildMapUrl = static function (array $location): string {
+    $parts = [];
+
+    foreach (['name', 'address', 'city'] as $field) {
+        $value = trim((string) ($location[$field] ?? ''));
+
+        if ($value !== '') {
+            $parts[] = $value;
+        }
+    }
+
+    $query = !empty($parts) ? implode(', ', $parts) : 'Ho Chi Minh City, Vietnam';
+
+    return 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode($query);
+};
 ?>
 <main class="main-content">
     <?php require APP_PATH . '/views/partials/breadcrumb.php'; ?>
@@ -209,8 +224,8 @@ $loginRedirectUrl = $course !== null
                                                 <td><?php echo htmlspecialchars($location['support_type'] ?: 'Support available'); ?></td>
                                                 <td><?php echo htmlspecialchars($location['availability_note'] ?: 'Available for enrolled students'); ?></td>
                                                 <td>
-                                                    <?php if ($location['type'] !== 'online' && !empty($location['google_maps_url'])): ?>
-                                                        <a href="<?php echo htmlspecialchars($location['google_maps_url']); ?>" target="_blank" rel="noopener" class="map-link">View Map</a>
+                                                    <?php if ($location['type'] !== 'online'): ?>
+                                                        <a href="<?php echo htmlspecialchars($buildMapUrl($location)); ?>" target="_blank" rel="noopener noreferrer" class="map-link">View Map</a>
                                                     <?php else: ?>
                                                         <span class="online-support-label">Online Support</span>
                                                     <?php endif; ?>
@@ -278,7 +293,11 @@ $loginRedirectUrl = $course !== null
                                 >
                                     Add to Cart
                                 </button>
-                                <a href="<?php echo base_url('cart.php'); ?>" class="btn btn-secondary btn-enroll">Enroll Now</a>
+                                <form method="post" action="<?php echo htmlspecialchars(base_url('course-detail.php?slug=' . urlencode($course['slug']))); ?>" class="purchase-action-form">
+                                    <?php echo csrfField(); ?>
+                                    <input type="hidden" name="course_action" value="enroll_now">
+                                    <button type="submit" class="btn btn-secondary btn-enroll">Enroll Now</button>
+                                </form>
                                 <div id="cartMessage" class="cart-message" aria-live="polite"></div>
                                 <p class="purchase-note">Add this course to your cart first, then continue to checkout to complete your enrollment.</p>
                             <?php endif; ?>

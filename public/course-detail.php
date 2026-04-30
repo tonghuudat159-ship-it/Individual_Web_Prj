@@ -21,6 +21,7 @@ require_once '../app/models/Enrollment.php';
 // Load helpers
 require_once '../app/helpers/url.php';
 require_once '../app/helpers/auth.php';
+require_once '../app/helpers/csrf.php';
 
 // Load course detail data
 $slug = isset($_GET['slug']) ? trim((string) $_GET['slug']) : '';
@@ -53,6 +54,47 @@ if ($slug !== '') {
                     $isInCart = $cartModel->isCourseInCart($userId, (int) $course['course_id']);
                     $isEnrolled = $enrollmentModel->isUserEnrolled($userId, (int) $course['course_id']);
                 }
+            }
+
+            if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && ($_POST['course_action'] ?? '') === 'enroll_now') {
+                $csrfToken = $_POST['csrf_token'] ?? null;
+
+                if (!verifyCsrfToken($csrfToken)) {
+                    setFlashMessage('Invalid form submission. Please try again.', 'error');
+                    redirect('course-detail.php?slug=' . urlencode($slug));
+                }
+
+                if (!$isLoggedIn) {
+                    setFlashMessage('Please login to add this course to your cart.', 'info');
+                    redirect('login.php?redirect=' . urlencode('course-detail.php?slug=' . $slug));
+                }
+
+                $userId = currentUserId();
+
+                if ($userId === null) {
+                    setFlashMessage('Please login to continue.', 'info');
+                    redirect('login.php?redirect=' . urlencode('course-detail.php?slug=' . $slug));
+                }
+
+                if ($isEnrolled) {
+                    setFlashMessage('You are already enrolled in this course.', 'info');
+                    redirect('my-learning.php');
+                }
+
+                if ($isInCart) {
+                    setFlashMessage('This course is already in your cart.', 'info');
+                    redirect('cart.php');
+                }
+
+                $addedToCart = $cartModel->addItem($userId, (int) $course['course_id']);
+
+                if ($addedToCart || $cartModel->isCourseInCart($userId, (int) $course['course_id'])) {
+                    setFlashMessage('Course added to cart. Continue to checkout to complete your enrollment.', 'success');
+                    redirect('cart.php');
+                }
+
+                setFlashMessage('Could not add this course to your cart.', 'error');
+                redirect('course-detail.php?slug=' . urlencode($slug));
             }
         }
     } catch (Throwable $exception) {

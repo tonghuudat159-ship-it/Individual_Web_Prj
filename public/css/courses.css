@@ -67,6 +67,57 @@
   min-width: 0;
 }
 
+.courses-page .courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+}
+
+.courses-page .course-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.courses-page .course-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.courses-page .course-title {
+  min-height: 3.1rem;
+}
+
+.courses-page .course-description-text {
+  min-height: 4.5rem;
+}
+
+.courses-page .course-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.courses-page .course-footer .price {
+  flex: 0 0 auto;
+}
+
+.courses-page .course-card-link {
+  flex: 0 0 auto;
+  min-width: max-content;
+  white-space: nowrap;
+  padding: 0.65rem 1rem;
+}
+
 .courses-toolbar-panel {
   padding: 1.5rem;
   border: 1px solid #e5e7eb;
@@ -469,6 +520,12 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+}
+
+.related-courses-grid > .course-card {
+  height: 100%;
 }
 
 .course-card-mini {
@@ -608,6 +665,10 @@
   gap: 1rem;
 }
 
+.purchase-action-form {
+  width: 100%;
+}
+
 .add-to-cart-btn,
 .btn-enroll {
   width: 100%;
@@ -742,6 +803,15 @@
     padding: 2rem 1rem 3rem;
   }
 
+  .courses-page .courses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .courses-page .course-card-link {
+    width: 100%;
+    min-width: 0;
+  }
+
   .courses-toolbar-panel {
     padding: 1rem;
   }
@@ -817,7 +887,7 @@
   }
 
   .purchase-buttons {
-    flex-direction: row;
+    flex-direction: column;
   }
 
   .add-to-cart-btn,

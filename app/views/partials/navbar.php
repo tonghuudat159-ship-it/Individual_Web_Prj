@@ -14,8 +14,8 @@ function isActive($page) {
     return $activePage === $page ? 'active' : '';
 }
 ?>
-<header class="header">
-    <div class="header-container">
+<header class="header site-header">
+    <div class="header-container site-header-inner">
         <div class="navbar-logo">
             <a href="<?php echo base_url('index.php'); ?>" class="navbar-logo-link">
                 <h1><?php echo APP_NAME; ?></h1>
